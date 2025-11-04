@@ -6,7 +6,7 @@ import 'package:wallpaper_studio/src/presentation/widgets/custom_appbar.dart';
 void main() {
   runApp(
     ScreenUtilInit(
-      designSize: const Size(1440, 1024), 
+      designSize: const Size(1440, 1024),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
@@ -32,5 +32,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

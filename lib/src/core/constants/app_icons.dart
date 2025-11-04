@@ -16,4 +16,6 @@ class AppIcons {
   static String open = 'assets/icons/open.svg';
   static String scale = 'assets/icons/scale.svg';
   static String subsettings = 'assets/icons/subsettings.svg';
+  static String link = 'assets/icons/link.svg';
+  static String emptyList = 'assets/icons/empty.svg';
 }

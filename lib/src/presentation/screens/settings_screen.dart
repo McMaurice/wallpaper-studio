@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:wallpaper_studio/src/models/db.dart';
+import 'package:wallpaper_studio/src/core/theme/app_colors.dart';
+import 'package:wallpaper_studio/src/core/theme/typograhpy.dart';
+import 'package:wallpaper_studio/src/presentation/widgets/custom_buttons.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/custom_divider.dart';
-import 'package:wallpaper_studio/src/presentation/widgets/gride_card.dart';
+import 'package:wallpaper_studio/src/presentation/widgets/iphone15_frame.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/gradient_text.dart';
+import 'package:wallpaper_studio/src/presentation/widgets/notification_selector.dart';
+import 'package:wallpaper_studio/src/presentation/widgets/picture_quality_dropdown.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -12,73 +15,105 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white70,
+      backgroundColor: AppColors.primaryAccent,
       body: Stack(
         children: [
           CustomDivider(),
-          SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 30.h),
-                  GradientText(text: 'Discover Beautiful Wallpapers'),
-                  SizedBox(height: 8.h),
-                  Text(
-                    'Discover curated collections of stunning wallpapers. Browse by \n'
-                    'category, preview in full-screen, and set your favorites.',
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 24.sp,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 30.h),
+                GradientText(text: 'Settings'),
+                SizedBox(height: 8.h),
+                Text(
+                  'Customize your Wallpaper Studio experience',
+                  style: AppTextStyle.regular(size: 24.sp),
+                ),
+                SizedBox(height: 50.h),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 47.w),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: AppColors.primaryColor,
+                      ),
+                      child: Row(
+                        children: [
+                          SizedBox(width: 151.w),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(width: 151.sp),
+                                Text(
+                                  "Wallpaper Setup",
+                                  style: AppTextStyle.medium(size: 24.sp),
+                                ),
+                                SizedBox(height: 8.h),
+                                Text(
+                                  "Configure your wallpaper settings and enable auto-rotation",
+                                  style: AppTextStyle.regular(size: 14.sp),
+                                ),
+                                SizedBox(height: 26.h),
+                                const ImageQualityDropdown(),
+                                SizedBox(height: 26.h),
+                                const NotificationSelector(),
+                                SizedBox(height: 26.h),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    SizedBox(
+                                      height: 50.h,
+                                      width: 200.w,
+                                      child: CustomButton(
+                                        text: 'Cancel',
+                                        forgroundColor: Colors.black,
+                                        textSize: 14.sp,
+                                      ),
+                                    ),
+                                    SizedBox(width: 20.w),
+                                    SizedBox(
+                                      height: 50.h,
+                                      width: 200.w,
+                                      child: CustomButton(
+                                        text: 'Save Settings',
+                                        forgroundColor: AppColors.primaryColor,
+                                        textSize: 14.sp,
+                                        backgroundColor:
+                                            AppColors.secondaryAccent,
+                                      ),
+                                    ),
+                                    SizedBox(width: 10.w),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 524.h,
+                                  width: 258,
+                                  child: Iphone15Frame(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  SizedBox(height: 50.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Categories',
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 32.sp,
-                        ),
-                      ),
-                      Text(
-                        'See All',
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 24.sp,
-                          color: const Color.fromRGBO(128, 128, 128, 1),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20.h),
-                  // Fixed Grid Section
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: categories.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 20,
-                          crossAxisSpacing: 20,
-                          childAspectRatio: 1.5,
-                        ),
-                    itemBuilder: (context, index) {
-                      return GrideCard(
-                        imageUrl: categories[index].imgPath,
-                        name: categories[index].name,
-                        description: categories[index].description,
-                        quantity: categories[index].amount, forHomeView: true,
-                      );
-                    },
-                  ),
-                  SizedBox(height: 50.h),
-                ],
-              ),
+                ),
+                SizedBox(height: 118.h),
+              ],
             ),
           ),
         ],

@@ -8,7 +8,7 @@ import 'package:wallpaper_studio/src/core/utilities/icon_helper.dart';
 import 'package:wallpaper_studio/src/models/db.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/custom_buttons.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/custom_divider.dart';
-import 'package:wallpaper_studio/src/presentation/widgets/device_frame.dart';
+import 'package:wallpaper_studio/src/presentation/widgets/iphone15_frame.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/gride_card.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/list_card.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/preview_buttons.dart';

@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:device_frame/device_frame.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:wallpaper_studio/src/core/constants/app_icons.dart';
+import 'package:wallpaper_studio/src/core/theme/app_colors.dart';
+import 'package:wallpaper_studio/src/core/theme/typograhpy.dart';
+import 'package:wallpaper_studio/src/presentation/widgets/custom_buttons.dart';
 
 class Iphone15Frame extends StatefulWidget {
-  final ImageProvider image;
+  final ImageProvider? image;
   final BoxFit fit;
   final bool showFrame;
   final Orientation orientation;
 
   const Iphone15Frame({
     super.key,
-    required this.image,
+    this.image,
     this.fit = BoxFit.cover,
     this.showFrame = true,
     this.orientation = Orientation.portrait,
@@ -31,14 +35,42 @@ class _Iphone15FrameState extends State<Iphone15Frame> {
         orientation: widget.orientation,
         screen: Builder(
           builder: (context) {
-            return SizedBox(
+            return Container(
+              color: AppColors.primaryColor,
               width: double.infinity,
               height: double.infinity,
               child: Stack(
                 children: [
-                  Positioned.fill(
-                    child: Image(image: widget.image, fit: widget.fit),
-                  ),
+                  widget.image != null
+                      ? Positioned.fill(
+                          child: Image(image: widget.image!, fit: widget.fit),
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomButton(
+                              text: 'Connected to device',
+                              textSize: 12,
+                              forgroundColor: Color(0xFF168200),
+                              icon: AppIcons.link,
+                              iconSize: 15.sp,
+                              backgroundColor: Color(
+                                0xFF168200,
+                              ).withAlpha((1 * 100).toInt()),
+                            ),
+                            SizedBox(height: 11.h),
+                            GestureDetector(
+                              onTap: (){},
+                              child: Text(
+                                'Click to disconnect',
+                                style: AppTextStyle.medium(
+                                  size: 12,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                   Positioned(
                     bottom: 14.h,
                     left: 0.w,
