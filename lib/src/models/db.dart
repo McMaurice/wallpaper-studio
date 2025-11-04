@@ -38,3 +38,16 @@ final List<CategoryModel> categories = [
     amount: 4,
   ),
 ];
+
+final List<String> subImage = [
+  'assets/subcategories/1.png',
+  'assets/subcategories/2.png',
+  'assets/subcategories/3.png',
+  'assets/subcategories/4.png',
+  'assets/subcategories/5.png',
+  'assets/subcategories/6.png',
+];
+
+final List<String> tags = ['Nature', 'Ambience', 'Flowers'];
+
+final List<String> favourites = [];

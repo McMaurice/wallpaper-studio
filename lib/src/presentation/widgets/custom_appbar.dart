@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:wallpaper_studio/src/core/formatters.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wallpaper_studio/src/core/constants/app_icons.dart';
+import 'package:wallpaper_studio/src/core/theme/app_colors.dart';
+import 'package:wallpaper_studio/src/core/theme/typograhpy.dart';
+import 'package:wallpaper_studio/src/core/utilities/formatters.dart';
+import 'package:wallpaper_studio/src/core/utilities/icon_helper.dart';
 import 'package:wallpaper_studio/src/presentation/screens/browse_screen.dart';
 import 'package:wallpaper_studio/src/presentation/screens/favourites_screen.dart';
 import 'package:wallpaper_studio/src/presentation/screens/home_screen.dart';
@@ -10,29 +13,24 @@ import 'package:wallpaper_studio/src/presentation/screens/settings_screen.dart';
 enum AppSection { home, browse, favourites, settings }
 
 extension AppSectionData on AppSection {
-  Widget icon({double size = 24, Color color = Colors.black}) {
+  Widget icon({Color color = Colors.black}) {
     final String path;
     switch (this) {
       case AppSection.home:
-        path = "assets/icons/home.svg";
+        path = AppIcons.home;
         break;
       case AppSection.browse:
-        path = "assets/icons/browse.svg";
+        path = AppIcons.browse;
         break;
       case AppSection.favourites:
-        path = "assets/icons/favourites.svg";
+        path = AppIcons.favourite;
         break;
       case AppSection.settings:
-        path = "assets/icons/settings.svg";
+        path = AppIcons.settings;
         break;
     }
 
-    return SvgPicture.asset(
-      path,
-      width: size,
-      height: size,
-      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-    );
+    return IconHelper(iconPath: path, size: 20.sp, color: color);
   }
 }
 
@@ -52,26 +50,18 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    final isDesktop = MediaQuery.of(context).size.width > 600;
-
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
+        backgroundColor: AppColors.primaryColor,
         elevation: 10,
         title: Row(
           children: [
-            const SizedBox(width: 47),
-            SvgPicture.asset("assets/icons/logo.svg", height: 14, width: 14),
-            const SizedBox(width: 8),
-            Text(
-              "Wallpaper Studio",
-              style: GoogleFonts.poppins(
-                fontSize: 14,
-                color: const Color(0xFF000000),
-                fontWeight: FontWeight.w400,
-              ),
-            ),
+            SizedBox(width: 47.w),
+            IconHelper(iconPath: AppIcons.logo, size: 14.sp, color: null),
+            SizedBox(width: 8.w),
+            Text("Wallpaper Studio", style: AppTextStyle.regular(size: 14)),
           ],
         ),
         actions: [
@@ -79,37 +69,35 @@ class _CustomAppBarState extends State<CustomAppBar> {
             (section) => GestureDetector(
               onTap: () => _select(section),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
                 child: Container(
-                  padding: const EdgeInsets.all(11.5),
+                  padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 16),
                   decoration: BoxDecoration(
                     color: _selected == section
-                        ? const Color.fromRGBO(245, 245, 245, 1)
+                        ? AppColors.primaryAccent
                         : Colors.transparent,
                     border: Border.all(
                       color: _selected == section
-                          ? Colors.black.withAlpha((0.5 * 100).toInt())
+                          ? Colors.black.withAlpha((0.5 * 50).toInt())
                           : Colors.transparent,
                     ),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: Row(
                     children: [
                       section.icon(
-                        size: 24,
                         color: _selected == section
                             ? Colors.black
-                            : Colors.grey.shade500,
+                            : AppColors.grey.withAlpha((1 * 150).toInt()),
                       ),
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10.w),
                       Text(
                         capitalizeFirst(section.name),
-                        style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
+                        style: AppTextStyle.regular(
+                          size: 14.sp,
                           color: _selected == section
                               ? Colors.black
-                              : Colors.grey.shade500,
+                              : AppColors.grey.withAlpha((1 * 150).toInt()),
                         ),
                       ),
                     ],
@@ -118,7 +106,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
               ),
             ),
           ),
-          const SizedBox(width: 47),
+          SizedBox(width: 47.w),
         ],
       ),
       body: AnimatedSwitcher(
@@ -127,13 +115,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
           builder: (_) {
             switch (_selected) {
               case AppSection.home:
-                return HomeScreen(isDesktop: isDesktop);
+                return HomeScreen();
               case AppSection.browse:
-                return BrowseScreen(isDesktop: isDesktop);
+                return BrowseScreen();
               case AppSection.favourites:
-                return FavouritesScreen(isDesktop: isDesktop);
+                return FavouritesScreen();
               case AppSection.settings:
-                return SettingsScreen(isDesktop: isDesktop);
+                return SettingsScreen();
             }
           },
         ),
