@@ -37,6 +37,7 @@ dependencies:
   google_fonts: ^6.3.2
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.2.1
+  device_frame: ^1.4.0
 
 dev_dependencies:
   flutter_test:
@@ -64,7 +65,7 @@ flutter:
   assets:
     - assets/categories/
     - assets/icons/
-    - assets/sub_categories/
+    - assets/subcategories/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -82,6 +83,8 @@ flutter:
       fonts:
         - asset: assets/font/ClashDisplay-Medium.otf
           weight: 500
+        - asset: assets/font/ClashDisplay-Regular.otf
+          weight: 400
 
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic

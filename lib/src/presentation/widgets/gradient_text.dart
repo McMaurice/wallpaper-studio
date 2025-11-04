@@ -1,5 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wallpaper_studio/src/core/theme/app_colors.dart';
+import 'package:wallpaper_studio/src/core/theme/typograhpy.dart';
 
 class GradientText extends StatelessWidget {
   final String text;
@@ -10,20 +13,15 @@ class GradientText extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShaderMask(
       shaderCallback: (bounds) {
-        return const LinearGradient(
-          colors: [Color(0xFFFBB03B), Color(0xFFEC0C43)],
+        return LinearGradient(
+          colors: [AppColors.secondaryColor, AppColors.red],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
-        ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height));
+        ).createShader(Rect.fromLTWH(0, 0, bounds.width.w, bounds.height));
       },
       child: Text(
         text,
-        style: TextStyle(
-          fontSize: 60,
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-          fontFamily: 'ClashDisplay',
-        ),
+        style: AppTextStyle.h1(size: 60.sp)
       ),
     );
   }

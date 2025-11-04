@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:wallpaper_studio/src/core/theme/app_colors.dart';
+import 'package:wallpaper_studio/src/core/theme/typograhpy.dart';
 import 'package:wallpaper_studio/src/models/db.dart';
-import 'package:wallpaper_studio/src/presentation/widgets/gradienr_text.dart';
-import 'package:wallpaper_studio/src/presentation/widgets/wallpaper_card.dart';
+import 'package:wallpaper_studio/src/presentation/widgets/custom_divider.dart';
+import 'package:wallpaper_studio/src/presentation/widgets/gride_card.dart';
+import 'package:wallpaper_studio/src/presentation/widgets/gradient_text.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, required this.isDesktop});
-  final bool isDesktop;
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white10,
+      backgroundColor: AppColors.primaryAccent,
       body: Stack(
         children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Container(height: 1.5, color: Colors.grey.shade300),
-          ),
+          CustomDivider(),
           SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
@@ -33,9 +29,9 @@ class HomeScreen extends StatelessWidget {
                   Text(
                     'Discover curated collections of stunning wallpapers. Browse by \n'
                     'category, preview in full-screen, and set your favorites.',
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 24.sp,
+                    style: AppTextStyle.regular(
+                      size: 24.sp,
+                      color: AppColors.grey.withAlpha((1 * 250).toInt()),
                     ),
                   ),
                   SizedBox(height: 50.h),
@@ -44,17 +40,13 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Categories',
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 32.sp,
-                        ),
+                        style: AppTextStyle.medium(size: 32.sp),
                       ),
                       Text(
                         'See All',
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 24.sp,
-                          color: const Color.fromRGBO(128, 128, 128, 1),
+                        style: AppTextStyle.regular(
+                          size: 24.sp,
+                          color: AppColors.grey.withAlpha((1 * 250).toInt()),
                         ),
                       ),
                     ],
@@ -65,23 +57,24 @@ class HomeScreen extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: categories.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 20,
-                          crossAxisSpacing: 20,
-                          childAspectRatio: 1.5,
-                        ),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 20.h,
+                      crossAxisSpacing: 20.w,
+                      childAspectRatio: 1.5,
+                    ),
                     itemBuilder: (context, index) {
-                      return WallPaperCard(
-                        imageUrl: categories[index].imgPath,
-                        name: categories[index].name,
-                        description: categories[index].description,
-                        quantity: categories[index].amount,
+                      return GestureDetector(
+                        onTap: () {},
+                        child: GrideCard(
+                          imageUrl: categories[index].imgPath,
+                          name: categories[index].name,
+                          description: categories[index].description,
+                          quantity: categories[index].amount, forHomeView: true,
+                        ),
                       );
                     },
                   ),
-                  SizedBox(height: 50.h),
                 ],
               ),
             ),
