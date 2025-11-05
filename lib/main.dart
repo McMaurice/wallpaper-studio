@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wallpaper_studio/src/core/theme/app_colors.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/custom_appbar.dart';
 
 void main() {
@@ -26,9 +27,10 @@ class MyApp extends StatelessWidget {
       title: 'Wallpaper Studio',
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
       ),
       home: const CustomAppBar(),
     );
   }
 }
+

@@ -27,54 +27,54 @@ class _ImageQualityDropdownState extends State<ImageQualityDropdown> {
       ),
       child: SizedBox(
         width: 569.w,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Image Quality', style: AppTextStyle.medium(size: 20.sp)),
-          SizedBox(height: 8.h),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Image Quality', style: AppTextStyle.medium(size: 20.sp)),
+            SizedBox(height: 8.h),
 
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(
-                color: AppColors.grey.withAlpha((1 * 100).toInt()),
-                width: 0.5.w,
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.r),
+                border: Border.all(
+                  color: AppColors.grey.withAlpha((1 * 100).toInt()),
+                  width: 0.5.w,
+                ),
               ),
-            ),
-            height: 36.h,
-            alignment: Alignment.center,
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                value: selectedQuality,
-                icon: const Icon(Icons.keyboard_arrow_down),
-                isExpanded: true,
-                dropdownColor: AppColors.primaryColor,
-                items: qualities.map((quality) {
-                  return DropdownMenuItem<String>(
-                    value: quality,
-                    child: Text(
-                      quality,
-                      style: AppTextStyle.regular(
-                        size: 14.sp,
-                        color: AppColors.grey,
+              height: 36.h,
+              alignment: Alignment.center,
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: selectedQuality,
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  isExpanded: true,
+                  dropdownColor: AppColors.primaryColor,
+                  items: qualities.map((quality) {
+                    return DropdownMenuItem<String>(
+                      value: quality,
+                      child: Text(
+                        quality,
+                        style: AppTextStyle.regular(
+                          size: 14.sp,
+                          color: AppColors.grey,
+                        ),
                       ),
-                    ),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  if (value != null) {
-                    setState(() {
-                      selectedQuality = value;
-                    });
-                  }
-                },
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    if (value != null) {
+                      setState(() {
+                        selectedQuality = value;
+                      });
+                    }
+                  },
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    )
     );
   }
 }

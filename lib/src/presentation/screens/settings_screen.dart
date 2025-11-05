@@ -20,11 +20,11 @@ class SettingsScreen extends StatelessWidget {
         children: [
           CustomDivider(),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
+            padding: EdgeInsets.symmetric(horizontal: 47.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 30.h),
+                SizedBox(height: 52.h),
                 GradientText(text: 'Settings'),
                 SizedBox(height: 8.h),
                 Text(
@@ -48,7 +48,7 @@ class SettingsScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(width: 151.sp),
+                                SizedBox(width: 151.w),
                                 Text(
                                   "Wallpaper Setup",
                                   style: AppTextStyle.medium(size: 24.sp),
@@ -66,26 +66,18 @@ class SettingsScreen extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    SizedBox(
-                                      height: 50.h,
-                                      width: 200.w,
-                                      child: CustomButton(
-                                        text: 'Cancel',
-                                        forgroundColor: Colors.black,
-                                        textSize: 14.sp,
-                                      ),
+                                    CustomButton(
+                                      text: 'Cancel',
+                                      forgroundColor: Colors.black,
+                                      textSize: 14.sp,
                                     ),
                                     SizedBox(width: 20.w),
-                                    SizedBox(
-                                      height: 50.h,
-                                      width: 200.w,
-                                      child: CustomButton(
-                                        text: 'Save Settings',
-                                        forgroundColor: AppColors.primaryColor,
-                                        textSize: 14.sp,
-                                        backgroundColor:
-                                            AppColors.secondaryAccent,
-                                      ),
+                                    CustomButton(
+                                      text: 'Save Settings',
+                                      forgroundColor: AppColors.primaryColor,
+                                      textSize: 14.sp,
+                                      backgroundColor:
+                                          AppColors.secondaryAccent,
                                     ),
                                     SizedBox(width: 10.w),
                                   ],
@@ -99,10 +91,12 @@ class SettingsScreen extends StatelessWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SizedBox(
-                                  height: 524.h,
-                                  width: 258,
-                                  child: Iphone15Frame(),
+                                Expanded(
+                                  child: SizedBox(
+                                    height: 524.h,
+                                    width: 258.w,
+                                    child: Iphone15Frame(),
+                                  ),
                                 ),
                               ],
                             ),

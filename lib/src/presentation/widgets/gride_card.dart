@@ -5,6 +5,7 @@ import 'package:wallpaper_studio/src/core/theme/app_colors.dart';
 import 'package:wallpaper_studio/src/core/theme/typograhpy.dart';
 import 'package:wallpaper_studio/src/core/utilities/formatters.dart';
 import 'package:wallpaper_studio/src/core/utilities/icon_helper.dart';
+import 'package:wallpaper_studio/src/models/category_model.dart';
 import 'package:wallpaper_studio/src/models/db.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/glass_container.dart';
 
@@ -44,13 +45,16 @@ class _GrideCardState extends State<GrideCard> {
   void _toggleFavorite() {
     setState(() {
       _isFave = !_isFave;
-
+      final FavouritesModel newFav = FavouritesModel(
+        imgPath: widget.imageUrl,
+        name: widget.name,
+      );
       if (_isFave) {
-        if (!favourites.contains(widget.imageUrl)) {
-          favourites.add(widget.imageUrl);
+        if (!favourites.any((f) => f.imgPath == widget.imageUrl)) {
+          favourites.add(newFav);
         }
       } else {
-        favourites.remove(widget.imageUrl);
+        favourites.removeWhere((f) => f.imgPath == widget.imageUrl);
       }
     });
   }
@@ -82,6 +86,7 @@ class _GrideCardState extends State<GrideCard> {
                           ),
                         ),
                         SizedBox(height: 4.h),
+
                         Text(
                           widget.description!,
                           style: AppTextStyle.regular(

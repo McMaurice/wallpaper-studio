@@ -10,17 +10,15 @@ class PreviewButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40.h,
-      width: 40.w,
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: Color(0xFFE5E5E5),
-        
+
         borderRadius: BorderRadius.circular(11.r),
       ),
       child: IconHelper(
         iconPath: icon,
-        size: 18.sp,
+        size: 20.sp,
         color: AppColors.grey.withAlpha((1 * 150).toInt()),
       ),
     );

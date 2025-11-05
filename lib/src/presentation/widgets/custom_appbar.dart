@@ -117,9 +117,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
               case AppSection.home:
                 return HomeScreen();
               case AppSection.browse:
-                return BrowseScreen();
+                return BrowseScreen(onSectionChange: _select);
               case AppSection.favourites:
-                return FavouritesScreen();
+                return FavouritesScreen(onSectionChange: _select);
               case AppSection.settings:
                 return SettingsScreen();
             }

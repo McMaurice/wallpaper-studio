@@ -11,3 +11,10 @@ class CategoryModel {
     required this.amount,
   });
 }
+
+class FavouritesModel {
+  final String name;
+  final String imgPath;
+
+  const FavouritesModel({required this.imgPath, required this.name});
+}
