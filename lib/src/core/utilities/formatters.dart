@@ -4,6 +4,6 @@ String capitalizeFirst(String text) {
 }
 
 String removeLastCharacter(String text) {
-  if (text.isEmpty) return text; 
+  if (text.isEmpty) return text;
   return text.substring(0, text.length - 1);
 }

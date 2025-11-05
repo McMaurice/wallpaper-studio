@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallpaper_studio/src/core/theme/app_colors.dart';
 import 'package:wallpaper_studio/src/core/theme/typograhpy.dart';
+import 'package:wallpaper_studio/src/models/category_model.dart';
 import 'package:wallpaper_studio/src/models/db.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/custom_divider.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/gride_card.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/gradient_text.dart';
+import 'package:wallpaper_studio/src/presentation/widgets/wallpapper_display.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,22 +26,45 @@ class HomeScreen extends StatelessWidget {
           CustomDivider(),
           SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
+              padding: EdgeInsets.symmetric(horizontal: 47.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 30.h),
-                  GradientText(text: 'Discover Beautiful Wallpapers'),
-                  SizedBox(height: 8.h),
-                  Text(
-                    'Discover curated collections of stunning wallpapers. Browse by \n'
-                    'category, preview in full-screen, and set your favorites.',
-                    style: AppTextStyle.regular(
-                      size: 24.sp,
-                      color: AppColors.grey.withAlpha((1 * 250).toInt()),
-                    ),
+                  SizedBox(height: 52.h),
+                  Column(
+                    children: [
+                      mainSelectedWalpper.imgPath.isEmpty
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                GradientText(
+                                  text: 'Discover Beautiful Wallpapers',
+                                ),
+                                SizedBox(height: 8.h),
+                                Text(
+                                  'Discover curated collections of stunning wallpapers. Browse by \n'
+                                  'category, preview in full-screen, and set your favorites.',
+                                  style: AppTextStyle.regular(
+                                    size: 24.sp,
+                                    color: AppColors.grey.withAlpha(
+                                      (1 * 250).toInt(),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 50.h),
+                              ],
+                            )
+                          : WallpapperDisplay(
+                              onBack: () => setState(() {
+                                mainSelectedWalpper = FavouritesModel(
+                                  imgPath: "",
+                                  name: "",
+                                );
+                              }),
+                            ),
+                    ],
                   ),
-                  SizedBox(height: 50.h),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -70,7 +100,8 @@ class HomeScreen extends StatelessWidget {
                           imageUrl: categories[index].imgPath,
                           name: categories[index].name,
                           description: categories[index].description,
-                          quantity: categories[index].amount, forHomeView: true,
+                          quantity: categories[index].amount,
+                          forHomeView: true,
                         ),
                       );
                     },

@@ -50,4 +50,6 @@ final List<String> subImage = [
 
 final List<String> tags = ['Nature', 'Ambience', 'Flowers'];
 
-final List<String> favourites = [];
+final List<FavouritesModel> favourites = [];
+
+FavouritesModel mainSelectedWalpper = FavouritesModel(imgPath: "", name: "");

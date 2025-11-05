@@ -30,44 +30,48 @@ class CustomButton extends StatefulWidget {
 class _CustomButtonState extends State<CustomButton> {
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.all(10.sp),
-        backgroundColor: widget.backgroundColor ?? Colors.transparent,
-        foregroundColor: widget.forgroundColor,
-        elevation: 0,
-        shadowColor: Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(21.r),
-          side: BorderSide(
-            color:
-                widget.backgroundColor ??
-                AppColors.grey.withAlpha((0.5 * 100).toInt()),
-            width: 1.w,
+    return SizedBox(
+      height: 50.h,
+      width: 200.w,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.all(10.sp),
+          backgroundColor: widget.backgroundColor ?? Colors.transparent,
+          foregroundColor: widget.forgroundColor,
+          elevation: 0,
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(21.dm),
+            side: BorderSide(
+              color:
+                  widget.backgroundColor ??
+                  AppColors.grey.withAlpha((0.5 * 100).toInt()),
+              width: 1.w,
+            ),
           ),
         ),
-      ),
-      onPressed: () => widget.onBack!(),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (widget.icon != null) ...[
+        onPressed: () => widget.onBack!(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (widget.icon != null) ...[
+              SizedBox(width: 10.w),
+              IconHelper(
+                iconPath: widget.icon!,
+                size: widget.iconSize!,
+                color: widget.forgroundColor,
+              ),
+            ],
             SizedBox(width: 10.w),
-            IconHelper(
-              iconPath: widget.icon!,
-              size: widget.iconSize!,
-              color: widget.forgroundColor,
+            Text(
+              widget.text,
+              style: AppTextStyle.medium(
+                color: widget.forgroundColor,
+                size: widget.textSize,
+              ),
             ),
           ],
-          SizedBox(width: 10.w),
-          Text(
-            widget.text,
-            style: AppTextStyle.medium(
-              color: widget.forgroundColor,
-              size: widget.textSize,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

@@ -20,7 +20,7 @@ class StyledDescription extends StatelessWidget {
           fontWeight: FontWeight.w500,
           fontSize: 14.sp,
           color: Colors.black,
-           height: 1.5,
+          height: 1.5,
         ),
         textAlign: TextAlign.start,
         overflow: TextOverflow.ellipsis,

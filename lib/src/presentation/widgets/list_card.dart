@@ -5,6 +5,7 @@ import 'package:wallpaper_studio/src/core/theme/app_colors.dart';
 import 'package:wallpaper_studio/src/core/theme/typograhpy.dart';
 import 'package:wallpaper_studio/src/core/utilities/formatters.dart';
 import 'package:wallpaper_studio/src/core/utilities/icon_helper.dart';
+import 'package:wallpaper_studio/src/models/category_model.dart';
 import 'package:wallpaper_studio/src/models/db.dart';
 import 'glass_container.dart';
 
@@ -41,17 +42,14 @@ class _ListCardState extends State<ListCard> {
     _isFave = widget.isFave!;
   }
 
-  void _toggleFavorite() {
+  void _addFavourite() {
     setState(() {
-      _isFave = !_isFave;
+      final FavouritesModel newFav = FavouritesModel(
+        imgPath: widget.imageUrl,
+        name: widget.name,
+      );
 
-      if (_isFave) {
-        if (!favourites.contains(widget.imageUrl)) {
-          favourites.add(widget.imageUrl);
-        }
-      } else {
-        favourites.remove(widget.imageUrl);
-      }
+      favourites.add(newFav);
     });
   }
 
@@ -147,7 +145,7 @@ class _ListCardState extends State<ListCard> {
                           right: 12.w,
                           top: 12.h,
                           child: GestureDetector(
-                            onTap: _toggleFavorite,
+                            onTap: _addFavourite,
                             child: _isFave
                                 ? Container(
                                     width: 40.w,
@@ -179,7 +177,6 @@ class _ListCardState extends State<ListCard> {
                                   ),
                           ),
                         ),
-                        
                       ],
                     ),
                     SizedBox(width: 20.w),
@@ -192,7 +189,7 @@ class _ListCardState extends State<ListCard> {
                           style: AppTextStyle.medium(size: 30.sp),
                         ),
                         SizedBox(height: 4.h),
-                         GlassContainer(
+                        GlassContainer(
                           width: 130.w,
                           height: 30.h,
                           isGride: false,
@@ -204,7 +201,6 @@ class _ListCardState extends State<ListCard> {
                             ),
                           ),
                         ),
-                        
                       ],
                     ),
                   ],

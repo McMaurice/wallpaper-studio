@@ -4,6 +4,7 @@ import 'package:wallpaper_studio/src/core/theme/app_colors.dart';
 import 'package:wallpaper_studio/src/core/theme/typograhpy.dart';
 import 'package:wallpaper_studio/src/models/db.dart';
 import 'package:wallpaper_studio/src/presentation/screens/detail_screen.dart';
+import 'package:wallpaper_studio/src/presentation/widgets/custom_appbar.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/custom_divider.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/gride_card.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/gradient_text.dart';
@@ -11,8 +12,8 @@ import 'package:wallpaper_studio/src/presentation/widgets/list_card.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/view_selector.dart';
 
 class BrowseScreen extends StatefulWidget {
-  const BrowseScreen({super.key});
-
+  const BrowseScreen({super.key, required this.onSectionChange});
+  final Function(AppSection) onSectionChange;
   @override
   State<BrowseScreen> createState() => _BrowseScreenState();
 }
@@ -33,14 +34,11 @@ class _BrowseScreenState extends State<BrowseScreen> {
                 CustomDivider(),
                 SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 24.w,
-                      vertical: 20.h,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 47.w),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 30.h),
+                        SizedBox(height: 52.h),
                         GradientText(text: 'Browse Categories'),
                         SizedBox(height: 8.h),
                         Row(
@@ -128,7 +126,8 @@ class _BrowseScreenState extends State<BrowseScreen> {
                                       imageUrl: item.imgPath,
                                       name: item.name,
                                       description: item.description,
-                                      quantity: item.amount, forHomeView: true,
+                                      quantity: item.amount,
+                                      forHomeView: true,
                                     ),
                                   );
                                 },
@@ -145,6 +144,7 @@ class _BrowseScreenState extends State<BrowseScreen> {
                 setState(() {
                   detailView = false;
                 });
+                widget.onSectionChange(AppSection.home);
               },
             ),
     );

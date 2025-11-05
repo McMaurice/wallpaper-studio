@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallpaper_studio/src/core/theme/app_colors.dart';
@@ -6,8 +5,8 @@ import 'package:wallpaper_studio/src/core/theme/typograhpy.dart';
 
 class GradientText extends StatelessWidget {
   final String text;
-
-  const GradientText({required this.text, super.key});
+  final TextStyle? style;
+  const GradientText({required this.text, super.key, this.style});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class GradientText extends StatelessWidget {
       },
       child: Text(
         text,
-        style: AppTextStyle.h1(size: 60.sp)
+        style: style ?? AppTextStyle.h1(size: 60.sp),
       ),
     );
   }

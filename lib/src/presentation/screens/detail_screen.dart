@@ -5,7 +5,9 @@ import 'package:wallpaper_studio/src/core/constants/app_icons.dart';
 import 'package:wallpaper_studio/src/core/theme/app_colors.dart';
 import 'package:wallpaper_studio/src/core/theme/typograhpy.dart';
 import 'package:wallpaper_studio/src/core/utilities/icon_helper.dart';
+import 'package:wallpaper_studio/src/models/category_model.dart';
 import 'package:wallpaper_studio/src/models/db.dart';
+import 'package:wallpaper_studio/src/presentation/screens/drawer_contents.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/custom_buttons.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/custom_divider.dart';
 import 'package:wallpaper_studio/src/presentation/widgets/iphone15_frame.dart';
@@ -29,22 +31,25 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isGride = true;
   bool isList = false;
 
-  late String selectedImage;
+  String selectedWalpper = '';
+
   late String displayName;
 
   @override
   void initState() {
     super.initState();
-    selectedImage = subImage.first;
+    selectedWalpper = subImage.first;
     displayName = "${widget.categoryName} 1";
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: AppColors.primaryAccent,
       body: Column(
         children: [
@@ -86,7 +91,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Nature',
+                            widget.categoryName,
                             style: AppTextStyle.h2(
                               size: 48.sp,
                               color: Colors.black,
@@ -139,7 +144,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                     onBack: () {
                                       setState(() {
                                         displayName = formattedName;
-                                        selectedImage = subImage[index];
+                                        selectedWalpper = subImage[index];
                                       });
                                     },
                                     forHomeView: false,
@@ -158,7 +163,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                     onBack: () {
                                       setState(() {
                                         displayName = formattedName;
-                                        selectedImage = subImage[index];
+                                        selectedWalpper = subImage[index];
                                       });
                                     },
                                     forHomeView: false,
@@ -271,7 +276,13 @@ class _DetailScreenState extends State<DetailScreen> {
                                       SizedBox(width: 12.w),
                                       PreviewButton(icon: AppIcons.scale),
                                       SizedBox(width: 12.w),
-                                      PreviewButton(icon: AppIcons.subsettings),
+                                      GestureDetector(
+                                        onTap: () => _scaffoldKey.currentState
+                                            ?.openEndDrawer(),
+                                        child: PreviewButton(
+                                          icon: AppIcons.subsettings,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ],
@@ -289,7 +300,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                       left: 40.w,
                                     ),
                                     child: Iphone15Frame(
-                                      image: AssetImage(selectedImage),
+                                      image: AssetImage(selectedWalpper),
                                     ),
                                   ),
                                 ],
@@ -322,6 +333,14 @@ class _DetailScreenState extends State<DetailScreen> {
                                 forgroundColor: AppColors.primaryColor,
                                 textSize: 14.sp,
                                 backgroundColor: AppColors.secondaryAccent,
+                                onBack: () {
+                                  mainSelectedWalpper = FavouritesModel(
+                                    imgPath: selectedWalpper,
+                                    name: displayName,
+                                  );
+
+                                  widget.onBack();
+                                },
                               ),
                             ),
 
@@ -338,6 +357,7 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ],
       ),
+      endDrawer: const DrawerContent(),
     );
   }
 }
